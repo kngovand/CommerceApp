@@ -14,7 +14,7 @@
         <input name="value1">
         <select name="action">
             <option value="plus">+</option>
-            <option value="minus">+</option>
+            <option value="minus">-</option>
         </select>
         <input name="value2">
         <input type="submit" name="submit" value="Submit">
@@ -29,10 +29,12 @@
 
             if($_GET["action"] == "plus") {
                 $result = $v1 + $v2;
+                echo "<h1>$result</h1>";
             }
 
             else if($_GET["action"] == "minus") {
-                $result = $v1 + $v2;
+                $result = $v1 - $v2;
+                echo "<h1>$result</h1>";
             }
         }
     ?>
