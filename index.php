@@ -1,3 +1,9 @@
+<?php $title = 'Home'; ?>
+<?php $metaTags = 'tag1 tag2'; ?>
+<?php $currentPage = 'index'; ?>
+<?php include('navbar.php'); ?>
+
+<body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
