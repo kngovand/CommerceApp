@@ -9,6 +9,7 @@
                 <li <?php if ($currentPage === 'Home') {echo 'class="active"';} ?>><a href="/app">Home</a></li>                    
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signup.php">Sign Up</a></li>
+                <li></li>
             </ul>
         </div>
     </div>
