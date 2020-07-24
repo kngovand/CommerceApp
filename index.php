@@ -1,11 +1,28 @@
-<?php $title = 'Home'; ?>
-<?php $metaTags = 'tag1 tag2'; ?>
-<?php $currentPage = 'index'; ?>
-<?php include('navbar.php'); ?>
+<?php 
+    require "header.php" 
+?>
+
+    <main>
+        <body>
+        <div class="container">
+        <h1>PHP Commerce App</h1><br>
+            <div class="jumbotron">
+                <p>
+                    Welcome! This website was written with PHP and Bootstrap, using XAMPP/Apache Server.<br>
+                    Please log in or sign up to test the functionality of the website, thanks!<br>
+                </p>
+                <p><a href ="info.php" class="btn btn-primary btn-lg" role="button">Info</a></p>
+            </div>
+        </div>
+        </body>
+    </main>
+
+<?php
+    require "footer.php"
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <title>Commerce App</title>
   <meta charset="utf-8">
@@ -14,17 +31,4 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-
-<body>
-    <div class="container">
-    <h1>PHP Commerce App</h1><br>
-        <div class="jumbotron">
-            <p>
-                Welcome! This website was written with PHP and Bootstrap, using XAMPP/Apache Server.<br>
-                Please log in or sign up to test the functionality of the website, thanks!<br>
-            </p>
-            <p><a href ="info.php" class="btn btn-primary btn-lg" role="button">Info</a></p>
-        </div>
-    </div>
-</body>
 </html>
