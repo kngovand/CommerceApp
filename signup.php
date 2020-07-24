@@ -5,7 +5,7 @@
     <main>
         <body>
         <div class ="container">
-            <form role="form" method="post" action="includes/login.inc.php">
+            <form role="form" method="post" action="includes/signup.inc.php">
             <div class="form-group row">
                 <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
