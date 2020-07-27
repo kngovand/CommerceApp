@@ -23,10 +23,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/app">Home</a></li>                    
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Sign Up</a></li>
-                    <li></li>
+                    <li><a href="/app">Home</a></li>
+                    <?php 
+                    if(isset($_SESSION['id'])) {
+                        echo '<li><a href="includes/logout.inc.php">Logout</a></li>';
+                    }
+                    else {
+                        echo '<li><a href="login.php">Login</a></li>
+                            <li><a href="signup.php">Sign Up</a></li>';
+                    }
+                    ?>                    
                 </ul>
             </div>
         </div>

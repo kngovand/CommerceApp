@@ -21,7 +21,7 @@
         <h1>PHP Commerce App</h1><br>
             <div class="jumbotron"> 
                 <?php
-                    if (isset($_SESSION['userId'])) {
+                    if (isset($_SESSION['id'])) {
                         echo '<p>You are logged in!</p>';
                     }
                     else {
