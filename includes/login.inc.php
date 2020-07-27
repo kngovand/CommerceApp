@@ -1,95 +1,67 @@
 <?php
 
-# if signup form is submitted
+# if login form is submitted
 if (isset($_POST['login-submit'])) {
 
     require 'dbhandler.inc.php';
 
-    $username = $_POST['user'];
     $email = $_POST['email'];
-    $pwd = $_POST['password1'];
+    $pwd = $_POST['password'];
 
-    # if any values are empty
-    if(empty($username) || empty($email) || empty($pwd) || empty($pwdrepeat) ) {
-        header("Location: ../signup.php?error=emptyfields&user=".$username."&email=".$email);
-        exit();
-    }
-
-    # legal email and username check
-    else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-        header("Location: ../signup.php?error=invalidemailuid");
-        exit();
-    }
-
-    # only email check
-    else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../signup.php?error=invalidemail&email=".$email);
-        exit();
-    }
-
-    # only username check
-    else if(!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-        header("Location: ../signup.php?error=invaliduser=".$username);
-        exit();
-    }
-
-    # passwords match 
-    else if($pwd !== $pwdrepeat) {
-        header("Location: ../signup.php?error=checkpassword&user=".$username);
+    # if email or password is empty
+    if(empty($email) || empty($pwd)) {
+        header("Location: ../signup.php?error=emptyfields");
         exit();
     }
 
     else {
         # prepared statement to prevent injection
-        $sql = "SELECT uidUsers from users where uidUsers=?";
+        $sql = "SELECT * FROM users WHERE uidUsers=? OR emailUsers=?";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: ../signup.php?error=sqlerror");
+            header("Location: ../login.php?error=sqlerror");
             exit();
         }
+
         else {
-            # statement, placeholder, data
-            mysqli_stmt_bind_param($stmt, "s", $username);
+            mysqli_stmt_bind_param($stmt, "ss", $email, $email);
             mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-            # fetch
-            mysqli_stmt_store_result($stmt);
+            if($row = mysqli_fetch_assoc($result)) {
+                $pwdCheck = password_verify($pwd, $row['pwdUsers']);
 
-            $resultCheck = mysqli_stmt_num_rows($stmt);
+                if($pwdCheck == false) {
+                    header("Location: ../login.php?error=wrongpassword");
+                    exit();
+                }
 
-            # resultCheck returns 1 entry exists
-            if ($resultCheck > 0) {
-                header("Location: ../signup.php?error=usertaken&mail=".$email);
-                exit();
+                # if password matches database
+                else if($pwdCheck == true) {
+                    session_start();
+                    $_SESSION['id'] = $row['idUsers'];
+                    $_SESSION['userID'] = $row['uidUsers'];
+                    $_SESSION['emailID'] = $row['emailUsers'];
+
+                    header("Location: ../login.php=success");
+                    exit();
+                }
             }
             else {
-                $sql = "INSERT INTO users (uidUsers, emailUsers, pwdUsers) VALUES (?, ?, ?)";
-                $stmt = mysqli_stmt_init($conn);
-
-                if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    header("Location: ../signup.php?error=sqlerror");
-                    exit();
-                }
-                else {
-                    # hashing password before insert statement executed
-                    $hashPwd = password_hash($pwd, PASSWORD_DEFAULT);
-
-                    mysqli_stmt_bind_param($stmt, "sss", $username, $email, $hashPwd);
-                    mysqli_stmt_execute($stmt);
-
-                    header("Location: ../signup.php?signup=success");
-                    exit();
-                }
+                header("Location: ../signup.php?error=nouser");
+                exit();
             }
         }
+
     }
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 }
+
 else {
     # redirect
-    header("Location: ../signup.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>

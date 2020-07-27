@@ -19,12 +19,19 @@
         <body>
         <div class="container">
         <h1>PHP Commerce App</h1><br>
-            <div class="jumbotron">
-                <p>
-                    Welcome! This website was written with PHP and Bootstrap, using XAMPP/Apache Server.<br>
-                    Please log in or sign up to test the functionality of the website, thanks!<br>
-                </p>
-                <p><a href ="info.php" class="btn btn-primary btn-lg" role="button">Info</a></p>
+            <div class="jumbotron"> 
+                <?php
+                    if (isset($_SESSION['userId'])) {
+                        echo '<p>You are logged in!</p>';
+                    }
+                    else {
+                    echo '<p>
+                        Welcome! This website was written with PHP and Bootstrap, using XAMPP/Apache Server.<br>
+                        Please log in or sign up to test the functionality of the website, thanks!<br>
+                    </p>
+                    <p><a href ="info.php" class="btn btn-primary btn-lg" role="button">Info</a></p>';
+                    }
+                ?>
             </div>
         </div>
         </body>

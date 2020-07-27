@@ -1,3 +1,7 @@
+<?php
+    session_start();
+ ?>
+
 <!--Bootstrap CDN-->
 <!DOCTYPE html>
 <html lang="en">
