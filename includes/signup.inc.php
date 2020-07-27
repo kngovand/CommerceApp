@@ -16,7 +16,7 @@ if (isset($_POST['signup-submit'])) {
     }
 
     // legal email and username check
-    else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username) {
+    else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
         header("Location: ../signup.php?error=invalidemailuid");
         exit();
     }
@@ -34,13 +34,23 @@ if (isset($_POST['signup-submit'])) {
     }
 
     // passwords match 
-    else if($password !== $pwdrepeat) {
+    else if($pwd !== $pwdrepeat) {
         header("Location: ../signup.php?error=checkpassword&user=".$username);
         exit();
     }
 
     else {
+        // prepared statement to prevent injection
+        $sql = "SELECT uidUsers from users where uidUsers=?";
+        $stmt = mysqli_stmt_init($conn);
 
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            header("Location: ../signup.php?error=dberror");
+            exit();
+        }
+
+        
     }
-
 }
+
+?>
