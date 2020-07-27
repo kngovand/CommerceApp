@@ -40,7 +40,7 @@
             <div class="form-group row">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Repeat Password</label>
                 <div class="col-sm-10">
-                <input type="repeatpassword" class="form-control" id="inputPassword" name="password2" placeholder="Repeat Password">
+                <input type="password" class="form-control" id="inputPassword" name="password2" placeholder="Repeat Password">
                 </div>
             </div>
             <div class="form-group row">
