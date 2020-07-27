@@ -9,31 +9,33 @@ if (isset($_POST['signup-submit'])) {
     $pwd = $_POST['password1'];
     $pwdrepeat = $_POST['password2'];
 
+    // if any values are empty
     if(empty($username) || empty($email) || empty($pwd) || empty($pwdrepeat) ) {
         header("Location: ../signup.php?error=emptyfields&user=".$username."&email=".$email);
         exit();
     }
 
-    // email and username check
-    else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match("/^[a-zA-Z0-9]*$/", $username) {
-        header("Location: ../signup.php?error=invalidemailuid=".$username."&mail=".$email);
+    // legal email and username check
+    else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username) {
+        header("Location: ../signup.php?error=invalidemailuid");
         exit();
     }
 
-    // email check
+    // only email check
     else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: ../signup.php?error=invalidemail&email=".$email);
         exit();
     }
 
-    // username check
+    // only username check
     else if(!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
         header("Location: ../signup.php?error=invaliduser=".$username);
         exit();
     }
 
+    // passwords match 
     else if($password !== $pwdrepeat) {
-        header("Location: ../signup.php?error=checkpassword=".$username);
+        header("Location: ../signup.php?error=checkpassword&user=".$username);
         exit();
     }
 
