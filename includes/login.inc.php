@@ -1,4 +1,5 @@
 <?php
+# comments: using Bootstrap CDN to sanitize entries, although PHP logic included to sanitize without framework. 
 
 # if login form is submitted
 if (isset($_POST['login-submit'])) {
